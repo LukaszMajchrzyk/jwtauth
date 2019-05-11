@@ -24,6 +24,7 @@ public class StoreItem {
     @Basic
     private Integer batch;
 
+
     @Basic
     private double unit_price;
 

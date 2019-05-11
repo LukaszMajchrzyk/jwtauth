@@ -37,8 +37,7 @@ public class Recip {
     @JoinColumn(name = "storeitem_storeitem_id", nullable = false)
     private Orders orders;
 
-
-
+    
     public Long getRecip_id() {
         return recip_id;
     }
