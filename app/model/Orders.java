@@ -1,16 +1,13 @@
 package tk.jewsbar.jwtauth.app.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Set;
 
 @Entity
-public class Orders {
+public class Orders implements Serializable {
 
     @Id
     @GeneratedValue
@@ -20,10 +17,16 @@ public class Orders {
     private Timestamp date;
 
 
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "storeitem_id")
-    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
-    private Set<Recip> recip;
+    @JsonIdentityReference(alwaysAsId=true)
+    @JsonProperty(value = "recip_id")
 
+
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "recip_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    //@JoinColumn(name = "recip_recip_id", nullable = false)
+
+
+private Recip recip;
 
     public Long getOrders_id() {
         return orders_id;
@@ -41,12 +44,11 @@ public class Orders {
         this.date = date;
     }
 
-    public Set<Recip> getRecip() {
+    public Recip getRecip() {
         return recip;
     }
 
-    public void setRecip(Set<Recip> recip) {
+    public void setRecip(Recip recip) {
         this.recip = recip;
-
     }
 }

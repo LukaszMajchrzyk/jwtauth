@@ -1,17 +1,15 @@
 package tk.jewsbar.jwtauth.app.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
 @Table(name = "recip")
-public class Recip {
+public class Recip implements Serializable {
 
     @Id
     @GeneratedValue
@@ -27,17 +25,12 @@ public class Recip {
 
     private String name;
 
-
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "orders_id")
     @OneToMany(mappedBy = "recip", cascade = CascadeType.ALL)
-    private Set<StoreItem> storeItem;
+
+    private Set<Orders> orders;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "storeitem_storeitem_id", nullable = false)
-    private Orders orders;
-
-    
     public Long getRecip_id() {
         return recip_id;
     }
@@ -78,19 +71,12 @@ public class Recip {
         this.name = name;
     }
 
-    public Set<StoreItem> getStoreItem() {
-        return storeItem;
-    }
 
-    public void setStoreItem(Set<StoreItem> storeItem) {
-        this.storeItem = storeItem;
-    }
-
-    public Orders getOrders() {
+    public Set<Orders> getOrders() {
         return orders;
     }
 
-    public void setOrders(Orders orders) {
+    public void setOrders(Set<Orders> orders) {
         this.orders = orders;
     }
 }

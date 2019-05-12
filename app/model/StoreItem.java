@@ -1,14 +1,17 @@
 package tk.jewsbar.jwtauth.app.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 
 @Entity
 @Table(name = "storeitem")
-public class StoreItem {
+public class StoreItem  implements Serializable {
 
     @Id
     @GeneratedValue
@@ -29,9 +32,6 @@ public class StoreItem {
     private double unit_price;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "recip_recip_id", nullable = false)
-    private Recip recip;
 
 
     public Long getStoreitem_id() {
@@ -75,11 +75,4 @@ public class StoreItem {
     }
 
 
-    public Recip getRecip() {
-        return recip;
-    }
-
-    public void setRecip(Recip recip) {
-        this.recip = recip;
-    }
 }
