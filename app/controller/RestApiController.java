@@ -39,11 +39,11 @@ public class RestApiController {
         }
         return new ResponseEntity<List<Store>>(stores, HttpStatus.OK);
     }
-
-    @PostMapping
-    public Store create(@RequestBody Store store) {
-        return storeService.create(store);
-    }
+//
+//    @PostMapping
+//    public Store create(@RequestBody Store store) {
+//        return storeService.create(store);
+//    }
 
 
     @RequestMapping(value = "/api/test/storeitem", method = RequestMethod.GET)
@@ -76,13 +76,13 @@ public class RestApiController {
         return new ResponseEntity<List<Orders>>(orders, HttpStatus.OK);
     }
 
-//
-//    @PostMapping
-//    public Orders create(@RequestBody Orders orders) {
-//        return ordersService.create(orders);
-//    }
-//
-//
+
+    @PostMapping
+    public Orders create(@RequestBody Orders orders) {
+        return ordersService.create(orders);
+    }
+
+
 
 
     @RequestMapping(value = "/api/test/recip", method = RequestMethod.GET)

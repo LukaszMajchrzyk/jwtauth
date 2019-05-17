@@ -7,7 +7,9 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
-public class Orders implements Serializable {
+public class Orders {
+
+
 
     @Id
     @GeneratedValue
@@ -16,17 +18,14 @@ public class Orders implements Serializable {
     @Basic
     private Timestamp date;
 
-
-    @JsonIdentityReference(alwaysAsId=true)
-    @JsonProperty(value = "recip_id")
-
-
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "recip_id")
-    @ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "recip_recip_id", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "recip_id")
+    @ManyToOne
+    @JoinColumn(name = "recip_recip_id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 
 
-private Recip recip;
+
+    public Recip recip;
 
     public Long getOrders_id() {
         return orders_id;

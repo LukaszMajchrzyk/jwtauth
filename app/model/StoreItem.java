@@ -1,7 +1,7 @@
 package tk.jewsbar.jwtauth.app.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -31,7 +31,10 @@ public class StoreItem  implements Serializable {
     @Basic
     private double unit_price;
 
-
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "recip_id")
+    @OneToMany(mappedBy = "storeItem", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Set<Recip> recip;
 
 
     public Long getStoreitem_id() {
@@ -75,4 +78,11 @@ public class StoreItem  implements Serializable {
     }
 
 
+    public Set<Recip> getRecip() {
+        return recip;
+    }
+
+    public void setRecip(Set<Recip> recip) {
+        this.recip = recip;
+    }
 }

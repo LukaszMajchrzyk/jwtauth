@@ -9,11 +9,11 @@ import java.util.Set;
 
 @Entity
 @Table(name = "recip")
-public class Recip implements Serializable {
+public class Recip  {
 
     @Id
     @GeneratedValue
-    private Long recip_id;
+    public Long recip_id;
 
     @NotNull
     private double quantity;
@@ -25,11 +25,22 @@ public class Recip implements Serializable {
 
     private String name;
 
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "orders_id")
-    @OneToMany(mappedBy = "recip", cascade = CascadeType.ALL)
 
+
+
+
+
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "orders_id")
+    @OneToMany(mappedBy = "recip", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Set<Orders> orders;
 
+   @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "storeitem_id")
+    @ManyToOne
+    @JoinColumn(name = "storeitem_storeitem_id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
+    private StoreItem storeItem;
 
     public Long getRecip_id() {
         return recip_id;
@@ -78,5 +89,13 @@ public class Recip implements Serializable {
 
     public void setOrders(Set<Orders> orders) {
         this.orders = orders;
+    }
+
+    public StoreItem getStoreItem() {
+        return storeItem;
+    }
+
+    public void setStoreItem(StoreItem storeItem) {
+        this.storeItem = storeItem;
     }
 }
